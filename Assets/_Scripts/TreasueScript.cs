@@ -29,7 +29,7 @@ public class TreasueScript : MonoBehaviour
         if (treasureIsOpen)
         {
             Instantiate(star, gameObject.transform.position, Quaternion.identity);
-            _starBody2D.AddForce(Vector2.up * force, ForceMode2D.Force);
+            _starBody2D.AddForce(Vector2.up * force, ForceMode2D.Impulse);
         }
     }
 
