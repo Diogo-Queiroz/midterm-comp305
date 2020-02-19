@@ -10,17 +10,16 @@ public class PlayerController : MonoBehaviour
     [SerializeField] private Transform groundCheckPos;
     [SerializeField] private LayerMask whatIsGround;
     [SerializeField] private float groundCheckRadius = 0.15f;
-    public bool aboveCrate;
 
     // Private variables
     public bool isGrounded = false;
     private Rigidbody2D rBody;
     private Animator anim;
     private bool isFacingRight = true;
-    public bool painting = false;
     public bool canMove = true;
     VirtualCameraController cameraController;
     float horiz;
+    public bool isDucking = false;
 
     // Start is called before the first frame update
     void Start()
@@ -29,7 +28,6 @@ public class PlayerController : MonoBehaviour
         rBody = GetComponent<Rigidbody2D>();
         anim = GetComponent<Animator>();
         StartCoroutine(Wait());
-        //AudioManager.instance.Play("LevelMusic");
     }
 
     IEnumerator Wait()
@@ -41,6 +39,14 @@ public class PlayerController : MonoBehaviour
 
     private void Update() {
         horiz = Input.GetAxis("Horizontal");
+        if (Input.GetKey(KeyCode.S) && horiz == 0)
+        {
+            isDucking = true;
+        }
+        else
+        {
+            isDucking = false;
+        }
 
     }
 
@@ -48,7 +54,7 @@ public class PlayerController : MonoBehaviour
     void FixedUpdate()
     {
 
-        isGrounded = (GroundCheck() && rBody.velocity.y < 0.1f) || aboveCrate;
+        isGrounded = (GroundCheck() && rBody.velocity.y < 0.1f);
 
         if(canMove){
 
@@ -61,13 +67,10 @@ public class PlayerController : MonoBehaviour
             }
 
             rBody.velocity = new Vector2(horiz * speed, rBody.velocity.y);
+            anim.SetBool("isDucking", isDucking);
 
-            if ( Mathf.Abs(horiz) > 0.1f || !isGrounded)
-            {
-                //anim.SetBool("Painting", false);
-                painting = false;
-            }
-        } else
+        } 
+        else
         {
             rBody.velocity = new Vector2(0, rBody.velocity.y);
         }

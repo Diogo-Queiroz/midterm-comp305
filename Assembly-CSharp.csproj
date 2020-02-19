@@ -63,7 +63,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Assets\_Scripts\DestroyStar.cs" />
     <Compile Include="Assets\_Scripts\PlayerController.cs" />
+    <Compile Include="Assets\_Scripts\TreasueScript.cs" />
     <Compile Include="Assets\_Scripts\VirtualCameraController.cs" />
     <Reference Include="Unity.Timeline.Editor">
       <HintPath>C:/UnityProjects/COMP305-Midter/Midterm-comp305/Library/ScriptAssemblies/Unity.Timeline.Editor.dll</HintPath>
